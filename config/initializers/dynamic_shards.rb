@@ -17,12 +17,11 @@ module DynamicShards
 
   def self.add_organization_db_config(organization)
     shard_name = organization.shard_name
-    return if ActiveRecord::Base.configurations.configs_for(env_name: Rails.env, name: shard_name).present?
-
     db_config = get_db_config(shard_name)
+    return db_config if ActiveRecord::Base.configurations.configs_for(env_name: Rails.env, name: shard_name).present?
 
     ActiveRecord::Base.configurations.configurations << db_config
-    ActiveRecord::Base.establish_connection(shard_name.to_sym)
+    # ActiveRecord::Base.establish_connection(shard_name.to_sym)
     return db_config
   end
 
@@ -33,10 +32,14 @@ module DynamicShards
   end
 
   def self.create_shard(db_config)
-    ActiveRecord::Base.establish_connection(db_config)
-    if !ActiveRecord::Base.connection.database_exists?
+    if !self.db_exists?(db_config.configuration_hash[:database])
+      ActiveRecord::Base.establish_connection(:primary)
       ActiveRecord::Base.connection.create_database(db_config.configuration_hash[:database])
     end
+  end
+
+  def self.db_exists?(db_name)
+    ActiveRecord::Base.connection.execute("SELECT FROM pg_database WHERE datname = '#{db_name}'").ntuples.positive?
   end
 
   def self.migrate_shard(db_config)
