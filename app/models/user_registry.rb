@@ -1,0 +1,2 @@
+class UserRegistry < PrimaryRecord
+end
