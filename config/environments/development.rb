@@ -41,8 +41,14 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
   config.hosts << /.*\.lvh\.me/
+  config.hosts << /lvh\.me/
 
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.session_store :cookie_store, key: "_ublog_session", domain: ".lvh.me"
+  config.action_dispatch.tld_length = 1
+
+  config.action_mailer.default_url_options = { host: "lvh.me", port: 3000 }
+  config.action_controller.raise_on_open_redirects = false
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

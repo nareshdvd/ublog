@@ -1,0 +1,13 @@
+<table class="w-full text-sm border-collapse">
+  <thead>
+    <tr class="border-b text-left">
+      <th class="py-2">Title</th>
+      <th class="py-2">Published At</th>
+      <th class="py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "row", collection: posts, as: :post %>
+    <%= turbo_frame_tag "new_row" %>
+  </tbody>
+</table>

@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend "posts", partial: "row", locals: { post: @post } %>
+<%= turbo_stream.replace "post_form", "" %>

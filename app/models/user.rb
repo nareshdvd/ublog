@@ -6,6 +6,8 @@ class User < TenantRecord
 
   after_commit -> { create_commit_hook }, on: :create
 
+  has_many :posts, foreign_key: :author_id
+
   def create_commit_hook
     Hooks::UserAfterCreateCommitHook.new(self).execute
   end

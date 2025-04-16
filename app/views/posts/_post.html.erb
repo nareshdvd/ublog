@@ -1,0 +1,8 @@
+<%= turbo_frame_tag dom_id(post) do %>
+  <h2><%= post.title %></h2>
+  <p><%= truncate(post.body, length: 100) %></p>
+  <p><%= post.published_at ? "Published" : "Draft" %></p>
+
+  <%= link_to "Edit", edit_post_path(post), data: { turbo_frame: dom_id(post) } %> |
+  <%= link_to "Delete", post, method: :delete, data: { turbo_confirm: "Sure?" } %>
+<% end %>

@@ -1,0 +1,18 @@
+<h2 class="text-xl font-bold mb-2">Posts</h2>
+
+<div data-controller="filter" class="mb-4">
+  <label>
+    <input type="checkbox" data-action="filter#toggle" data-target="filter.toggle" data-filter-target="checkbox" />
+    Show only published
+  </label>
+</div>
+
+<%= link_to "New Post", new_post_path, data: { turbo_frame: "post_form" }, style: 'border: 1px solid #aeaeae; padding: 15px; float: right;' %>
+
+<%= turbo_frame_tag "posts" do %>
+  <%= render partial: "table", locals: { posts: @posts } %>
+<% end %>
+
+<div style="border: 1px solid #aeaeae;">
+  <%= turbo_frame_tag "post_form" %>
+</div>

@@ -19,7 +19,10 @@
   </head>
 
   <body>
-    <% flash[:alert] %>
-    <%= yield %>
+    <%= render partial: "common/header" %>
+    <div class="main-body">
+      <% flash[:alert] %>
+      <%= yield %>
+    </div>
   </body>
 </html>

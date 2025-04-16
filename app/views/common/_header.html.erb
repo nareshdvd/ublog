@@ -1,0 +1,9 @@
+<div class="header">
+  <div class="h-left">
+    <div class="brand">UBlog</div>
+  </div>
+  <div class="h-right">
+    <div><%= current_user.email %></div>
+    <div><%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false } %></div>
+  </div>
+</div>

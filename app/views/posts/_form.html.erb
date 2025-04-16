@@ -1,0 +1,17 @@
+<%= turbo_frame_tag dom_id(post) do %>
+  <%= form_with(model: post, data: { turbo_frame: "posts" }) do |f| %>
+    <div class="my-2">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="my-2">
+      <%= f.label :body %><br>
+      <%= f.text_area :body %>
+    </div>
+    <div class="my-2">
+      <%= f.label :published_at %><br>
+      <%= f.datetime_select :published_at %>
+    </div>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
